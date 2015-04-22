@@ -35,7 +35,7 @@ PRIMARY KEY(id_tipo_medida)
 CREATE TABLE medicion
 (
 fecha_toma timestamp,
-fecha_registro timestamp,
+fecha_registro timestamp default 'now()',
 geometria geometry(Point, 4326),
 banda smallint,
 valor_medido decimal(30,20),
