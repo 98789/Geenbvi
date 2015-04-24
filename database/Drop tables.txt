@@ -1,4 +1,4 @@
-DROP TABLE if exists medicion;
+DROP TABLE if exists medida;
 DROP TABLE if exists tipo_medida;
 DROP TABLE if exists sensor;
 DROP TABLE if exists tipo_sensor;

@@ -10,9 +10,8 @@ CREATE EXTENSION postgis_tiger_geocoder;
 
 CREATE TABLE tipo_sensor
 (
-id_tipo_sensor serial,
-nombre varchar(15) not null,
-PRIMARY KEY(id_tipo_sensor)
+nombre varchar(15) not null unique,
+PRIMARY KEY(nombre)
 );
 
 CREATE TABLE sensor
@@ -20,29 +19,29 @@ CREATE TABLE sensor
 id_sensor varchar(10),
 nombre varchar(30) not null,
 descripcion varchar(300) null,
-tipo integer,
+tipo varchar(15) not null,
 PRIMARY KEY(id_sensor),
-FOREIGN KEY(tipo) REFERENCES tipo_sensor(id_tipo_sensor)
+FOREIGN KEY(tipo) REFERENCES tipo_sensor(nombre)
 );
 
 CREATE TABLE tipo_medida
 (
-id_tipo_medida serial,
-nombre varchar(50) not null,
-PRIMARY KEY(id_tipo_medida)
+nombre varchar(50) not null unique,
+PRIMARY KEY(nombre)
 );
 
-CREATE TABLE medicion
+CREATE TABLE medida
 (
-fecha_toma timestamp,
-fecha_registro timestamp default 'now()',
-geometria geometry(Point, 4326),
-banda smallint,
-valor_medido decimal(30,20),
-id_sensor varchar,
-id_tipo_medida bigint,
-comentario varchar(100),
+id_medida serial,
+fecha_toma timestamp not null,
+fecha_registro timestamp default 'now()' not null,
+geometria geometry(Point, 4326) not null,
+banda smallint not null,
+valor_medido decimal(30,20) not null,
+id_sensor varchar not null,
+tipo varchar(50) not null,
+comentario varchar(100) null,
 PRIMARY KEY(fecha_toma),
 FOREIGN KEY(id_sensor) REFERENCES sensor(id_sensor),
-FOREIGN KEY(id_tipo_medida) REFERENCES tipo_medida(id_tipo_medida)
-)
+FOREIGN KEY(tipo) REFERENCES tipo_medida(nombre)
+);
