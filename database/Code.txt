@@ -10,8 +10,9 @@ CREATE EXTENSION postgis_tiger_geocoder;
 
 CREATE TABLE tipo_sensor
 (
+id_tipo_sensor serial,
 nombre varchar(15) not null unique,
-PRIMARY KEY(nombre)
+PRIMARY KEY(id_tipo_sensor)
 );
 
 CREATE TABLE sensor
@@ -19,15 +20,16 @@ CREATE TABLE sensor
 id_sensor varchar(10),
 nombre varchar(30) not null,
 descripcion varchar(300) null,
-tipo varchar(15) not null,
+tipo bigint not null,
 PRIMARY KEY(id_sensor),
-FOREIGN KEY(tipo) REFERENCES tipo_sensor(nombre)
+FOREIGN KEY(tipo) REFERENCES tipo_sensor(id_tipo_sensor)
 );
 
 CREATE TABLE tipo_medida
 (
+id_medida serial,
 nombre varchar(50) not null unique,
-PRIMARY KEY(nombre)
+PRIMARY KEY(id_medida)
 );
 
 CREATE TABLE medida
@@ -39,9 +41,9 @@ geometria geometry(Point, 4326) not null,
 banda smallint not null,
 valor_medido decimal(30,20) not null,
 id_sensor varchar not null,
-tipo varchar(50) not null,
+tipo bigint not null,
 comentario varchar(100) null,
 PRIMARY KEY(fecha_toma),
 FOREIGN KEY(id_sensor) REFERENCES sensor(id_sensor),
-FOREIGN KEY(tipo) REFERENCES tipo_medida(nombre)
+FOREIGN KEY(tipo) REFERENCES tipo_medida(id_medida)
 );
