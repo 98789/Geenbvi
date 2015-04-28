@@ -1,4 +1,4 @@
 INSERT INTO tipo_sensor(nombre) VALUES ('Real'),('Virtual');
-INSERT INTO sensor VALUES ('RG-F01','Sensor Real 1','Sensor real # 1 de prueba',1), ('RG-F02','Sensor Real 2','Sensor real # 2 de prueba',1),('RG-V01','Sensor Virtual 1','Sensor Virtual # 1 de prueba',2),('RG-V02','Sensor Virtual 2',null,2);
-INSERT INTO tipo_medida(nombre) VALUES ('Temperatura'),('Distancia'),('Fotoeléctrica');
-INSERT INTO medida(fecha_toma,geometria, banda, valor_medido, id_sensor, tipo) VALUES ('21/04/15 03:35',ST_SetSRID(ST_MakePoint(-31.462984235,34.34353453), 4326),2,15.88920123123,'RG-F01',1),('20/04/15 17:22',ST_SetSRID(ST_MakePoint(-71.060316,48.432044), 4326),1,10,'RG-F02',1),('21/04/15 00:03',ST_SetSRID(ST_MakePoint(-71.235345,54.1231034), 4326),2,9.12312423423456,'RG-V02',3);
+INSERT INTO sensor (codigo,nombre,descripcion,tipo) VALUES ('RG-F01','Sensor Real 1','Sensor real # 1 de prueba',1), ('RG-F02','Sensor Real 2','Sensor real # 2 de prueba',1),('RG-V01','Sensor Virtual 1','Sensor Virtual # 1 de prueba',2),('RG-V02','Sensor Virtual 2',null,2);
+INSERT INTO tipo_medida(nombre) VALUES ('Temperatura'),('Distancia'),('Presión');
+INSERT INTO medida(fecha_toma,geometria, banda, valor_medido, sensor, tipo) VALUES ('21/04/15 03:35',ST_SetSRID(ST_MakePoint(-31.462984235,34.34353453), 4326),2,15.88920123123,1,1),('20/04/15 17:22',ST_SetSRID(ST_MakePoint(-71.060316,48.432044), 4326),1,10,2,1),('21/04/15 00:03',ST_SetSRID(ST_MakePoint(-71.235345,54.1231034), 4326),2,9.12312423423456,4,3);

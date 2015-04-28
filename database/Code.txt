@@ -1,49 +1,40 @@
-
--- Enable PostGIS (includes raster)
-CREATE EXTENSION postgis;
--- Enable Topology
-CREATE EXTENSION postgis_topology;
--- fuzzy matching needed for Tiger
-CREATE EXTENSION fuzzystrmatch;
--- Enable US Tiger Geocoder
-CREATE EXTENSION postgis_tiger_geocoder;
-
 CREATE TABLE tipo_sensor
 (
-id_tipo_sensor serial,
+id serial,
 nombre varchar(15) not null unique,
-PRIMARY KEY(id_tipo_sensor)
+PRIMARY KEY(id)
 );
 
 CREATE TABLE sensor
 (
-id_sensor varchar(10),
+id serial,
+codigo varchar(10),
 nombre varchar(30) not null,
 descripcion varchar(300) null,
 tipo bigint not null,
-PRIMARY KEY(id_sensor),
-FOREIGN KEY(tipo) REFERENCES tipo_sensor(id_tipo_sensor)
+PRIMARY KEY(id),
+FOREIGN KEY(tipo) REFERENCES tipo_sensor(id)
 );
 
 CREATE TABLE tipo_medida
 (
-id_medida serial,
+id serial,
 nombre varchar(50) not null unique,
-PRIMARY KEY(id_medida)
+PRIMARY KEY(id)
 );
 
 CREATE TABLE medida
 (
-id_medida serial,
+id serial,
 fecha_toma timestamp not null,
-fecha_registro timestamp default 'now()' not null,
-geometria geometry(Point, 4326) not null,
+fecha_registro timestamp default now() not null,
+geometria geometry(Point, 4326) null,
 banda smallint not null,
 valor_medido decimal(30,20) not null,
-id_sensor varchar not null,
+sensor bigint not null,
 tipo bigint not null,
 comentario varchar(100) null,
-PRIMARY KEY(fecha_toma),
-FOREIGN KEY(id_sensor) REFERENCES sensor(id_sensor),
-FOREIGN KEY(tipo) REFERENCES tipo_medida(id_medida)
+PRIMARY KEY(id),
+FOREIGN KEY(sensor) REFERENCES sensor(id),
+FOREIGN KEY(tipo) REFERENCES tipo_medida(id)
 );
